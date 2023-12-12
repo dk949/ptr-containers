@@ -13,3 +13,7 @@ target_link_libraries(${TEST_NAME} PRIVATE ptr_containers)
 
 target_compile_options(${TEST_NAME} PRIVATE -fsanitize=address)
 target_link_options(${TEST_NAME} PRIVATE -fsanitize=address)
+
+include(CTest)
+include(Catch)
+catch_discover_tests(tests)

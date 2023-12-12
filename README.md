@@ -36,4 +36,6 @@ Tests can be enabled with the `PTR_CONTAINERS_BUILD_TESTS` cmake variable.
 
 Requires [catch2](https://github.com/catchorg/Catch2) as a system package.
 
-Tests can be ran with `./build/tests/tests`.
+Tests can be ran with `./build/tests/tests` or `ctest --test-dir build/tests`
+(using catch2 and ctest runners respectively).
+
