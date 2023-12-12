@@ -32,9 +32,9 @@ See comments for further descriptions of individual functions.
 
 ## Testing
 
-Tests can be enabled with the `PTR_CONTAINERS_BUILD_TESTS` cmake variable.
+**Make sure to run the tests/fetch-catch2.sh script before running tests**
 
-Requires [catch2](https://github.com/catchorg/Catch2) as a system package.
+Tests can be enabled with the `PTR_CONTAINERS_BUILD_TESTS` cmake variable.
 
 Tests can be ran with `./build/tests/tests` or `ctest --test-dir build/tests`
 (using catch2 and ctest runners respectively).
