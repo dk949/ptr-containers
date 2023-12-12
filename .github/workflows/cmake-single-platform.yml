@@ -17,38 +17,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      # Use catch2 from noble repos
-    - run: |
-        echo 'deb http://archive.ubuntu.com/ubuntu/ noble main restricted'                               >> /etc/apt/sources.list
-        echo 'deb http://archive.ubuntu.com/ubuntu/ noble-updates main restricted'                       >> /etc/apt/sources.list
-        echo 'deb http://archive.ubuntu.com/ubuntu/ noble universe'                                      >> /etc/apt/sources.list
-        echo 'deb http://archive.ubuntu.com/ubuntu/ noble-updates universe'                              >> /etc/apt/sources.list
-        echo 'deb http://archive.ubuntu.com/ubuntu/ noble multiverse'                                    >> /etc/apt/sources.list
-        echo 'deb http://archive.ubuntu.com/ubuntu/ noble-updates multiverse'                            >> /etc/apt/sources.list
-        echo 'deb http://archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse' >> /etc/apt/sources.list
-        echo 'deb http://security.ubuntu.com/ubuntu/ noble-security main restricted'                     >> /etc/apt/sources.list
-        echo 'deb http://security.ubuntu.com/ubuntu/ noble-security universe'                            >> /etc/apt/sources.list
-        echo 'deb http://security.ubuntu.com/ubuntu/ noble-security multiverse'                          >> /etc/apt/sources.list
-
-        echo 'Package: *'            > /etc/apt/preferences.d/catch2.pref
-        echo 'Pin: release n=jammy' >> /etc/apt/preferences.d/catch2.pref
-        echo 'Pin-Priority: -10'    >> /etc/apt/preferences.d/catch2.pref
-        echo 'Package: catch2'      >> /etc/apt/preferences.d/catch2.pref
-        echo 'Pin: release n=noble' >> /etc/apt/preferences.d/catch2.pref
-        echo 'Pin-Priority: 500'    >> /etc/apt/preferences.d/catch2.pref
-        apt update
-    - uses: awalsh128/cache-apt-pkgs-action@latest
-      with:
-        packages: catch2
-        version: 1.0
-
     - name: Configure CMake
-      run: >
-        cmake
-        -S ${{github.workspace}}
-        -B ${{github.workspace}}/build
-        -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-        -DPTR_CONTAINERS_BUILD_TESTS=YES
+      run: |
+        ./${{github.workspace}}/tests/fetch-catch2.sh
+        cmake -S ${{github.workspace}} -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DPTR_CONTAINERS_BUILD_TESTS=YES
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
