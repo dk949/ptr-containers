@@ -3,9 +3,9 @@ name: CMake tests
 on:
   workflow_dispatch:
   push:
-    branches: [ $default-branch ]
+    branches: [ trunk ]
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ trunk ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
