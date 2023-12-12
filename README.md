@@ -1,5 +1,7 @@
 # Pointer containers for C++
 
+[![CMake tests](https://github.com/dk949/ptr-containers/actions/workflows/cmake-single-platform.yml/badge.svg?branch=trunk)](https://github.com/dk949/ptr-containers/actions/workflows/cmake-single-platform.yml)
+
 Some containers to work with pointers. Useful for dynamic polymorphism.
 
 Requires c++20 (mostly for concepts)
