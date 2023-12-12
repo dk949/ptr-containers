@@ -441,6 +441,10 @@ TEST_CASE("OwnPtrVec: stdlib integration", "[utils][OwnPtrVec]") {
         sw1.swap(sw2);
         REQUIRE(std1 == sw1);
         REQUIRE(std2 == sw2);
+
+        swap(std1, std2);
+        REQUIRE(std1 == sw2);
+        REQUIRE(std2 == sw1);
     }
     SECTION("algorithm") {
         OwnPtrVec<int> ac;

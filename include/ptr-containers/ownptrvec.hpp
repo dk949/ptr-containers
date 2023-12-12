@@ -229,8 +229,6 @@ public:  ////////// modifiers //////////
         delete m_data[--m_size];
     }
 
-    // void resize(size_type);
-
     void swap(OwnPtrVec &other) noexcept {
         std::swap(m_data, other.m_data);
         std::swap(m_size, other.m_size);
@@ -330,6 +328,18 @@ struct IsComparableContainerBase<OwnPtrVec<T>, PtrVecView<T>> : std::true_type {
 template<typename T>
 struct IsComparableContainerBase<PtrVecView<T>, OwnPtrVec<T>> : std::true_type { };
 
+template<typename T>
+void swap(ut::OwnPtrVec<T> &a, ut::OwnPtrVec<T> &b) {
+    a.swap(b);
+}
+
 }  // namespace ut
+
+namespace std {
+template<typename T>
+void swap(ut::OwnPtrVec<T> &a, ut::OwnPtrVec<T> &b) {
+    a.swap(b);
+}
+}
 
 #endif  // OWNPTRVEC_HPP

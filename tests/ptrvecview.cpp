@@ -295,6 +295,33 @@ TEST_CASE("PtrVecView: stdlib integration", "[utils][PtrVecView]") {
         REQUIRE(std::size(view) == view.size());
     }
 
+    SECTION("swap") {
+        auto v_std1 = OwnPtrVec<int>::make(10, 11);
+        auto v_std2 = OwnPtrVec<int>::make(9);
+        auto v_sw1 = OwnPtrVec<int>::make(10, 11);
+        auto v_sw2 = OwnPtrVec<int>::make(9);
+
+        auto std1 = v_std1.view();
+        auto std2 = v_std2.view();
+        auto sw1 = v_sw1.view();
+        auto sw2 = v_sw2.view();
+
+        REQUIRE(std1 == sw1);
+        REQUIRE(std2 == sw2);
+
+        std::swap(std1, std2);
+        REQUIRE(std1 == sw2);
+        REQUIRE(std2 == sw1);
+
+        sw1.swap(sw2);
+        REQUIRE(std1 == sw1);
+        REQUIRE(std2 == sw2);
+
+        swap(std1, std2);
+        REQUIRE(std1 == sw2);
+        REQUIRE(std2 == sw1);
+    }
+
     SECTION("algorithm") {
         auto ac = OwnPtrVec<int>::make(10, 10, 10, 10);
         PtrVecView<int> ac_view = ac.view();

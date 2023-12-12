@@ -37,8 +37,25 @@ public:
         m_data = from;
         m_size = count;
     }
+
+    void swap(PtrVecView &other) noexcept {
+        std::swap(m_data, other.m_data);
+        std::swap(m_size, other.m_size);
+    }
 };
 
+template<typename T>
+void swap(ut::PtrVecView<T> &a, ut::PtrVecView<T> &b) {
+    a.swap(b);
+}
+
 }  // namespace ut
+
+namespace std {
+template<typename T>
+void swap(ut::PtrVecView<T> &a, ut::PtrVecView<T> &b) {
+    a.swap(b);
+}
+}
 
 #endif  // PTRVECVIEW_HPP

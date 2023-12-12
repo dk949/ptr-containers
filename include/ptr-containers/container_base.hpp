@@ -61,11 +61,6 @@ protected:
 
 public:  ////////// element access //////////
 
-
-    // void assign();
-
-    // T *at();
-
     reference operator[](size_type idx) {
         assert(m_size > idx);
         return m_data[idx];
