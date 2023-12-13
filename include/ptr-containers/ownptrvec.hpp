@@ -158,7 +158,7 @@ public:  ////////// capacity //////////
 
 public:  ////////// modifiers //////////
     void clear() {
-        for (size_type i = 0; i < m_size; i++)
+        for (size_type i = 0; i < m_size; ++i)
             delete m_data[i];
         m_size = 0;
     }
@@ -189,7 +189,7 @@ public:  ////////// modifiers //////////
         assert(range_size > 0);
         assert(size_type(range_size) <= m_size);
         auto const start_idx = detail::distance(m_data, first);
-        for (auto i = start_idx; i < start_idx + range_size; i++)
+        for (auto i = start_idx; i < start_idx + range_size; ++i)
             delete m_data[i];
 
         std::memmove(m_data + start_idx,
@@ -286,7 +286,7 @@ private:
         } else
             std::memmove(m_data + idx + 1, m_data + idx, (m_size - size_type(idx)) * sizeof(T *));
 
-        m_size++;
+        ++m_size;
         m_data[idx] = t;
         return m_data + idx;
     }

@@ -201,7 +201,7 @@ requires ComparableContainerBase<A, B>  //
 
     if (a.size() != b.size()) return false;
 
-    for (S i = 0; i < a.size(); i++) {
+    for (S i = 0; i < a.size(); ++i) {
         if (a.data()[i] == b.data()[i]) continue;
         if (*a.data()[i] != *b.data()[i]) return false;
     }
