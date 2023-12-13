@@ -19,7 +19,7 @@ cmake -S "${catch2_src_dir}" -B "${catch2_src_dir}/build" \
         -DCATCH_ENABLE_WERROR=OFF \
         -DCATCH_BUILD_SURROGATES=OFF \
         -DCATCH_INSTALL_EXTRAS=ON
-cmake --build "${catch2_src_dir}/build"
+cmake --build "${catch2_src_dir}/build" -j
 cmake --install "${catch2_src_dir}/build" --prefix "${catch2_install_dir}"
 
 rm -rf "${catch2_src_dir}"
