@@ -29,8 +29,15 @@ Not currently set up as a cmake pakcage.
     * No allocator support (yet).
 * `ut::PtrVecView<T>`
     * A light-weight, non-owning view of `ut::OwnPtrVec<T>`
+* `ut::ValuePtr<T>`
+    * A smart pointer which behaves like a value
+    * Can be thought of as `std::any` which can only contain subclasses of `T`.
+    * Provides `operator->` to access `T`s API.
+    * See notes at the end of document for caveats.
 
 See comments for further descriptions of individual functions.
+
+
 
 ## Testing
 
@@ -41,3 +48,11 @@ Tests can be enabled with the `PTR_CONTAINERS_BUILD_TESTS` cmake variable.
 Tests can be ran with `./build/tests/tests` or `ctest --test-dir build/tests`
 (using catch2 and ctest runners respectively).
 
+
+##  Notes on ValuePtr
+
+For all copy/move assignment operator calls will invoke the move/copy
+*constructor* of the underlying type.
+
+Neither the move constructor nor the move assignment operators call the
+corresponding functions of the underlying type.

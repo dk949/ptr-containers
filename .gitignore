@@ -1,3 +1,4 @@
 build
 tests/Catch2
 tests/Catch2-install
+compile_commands.json
