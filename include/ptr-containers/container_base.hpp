@@ -95,7 +95,7 @@ public:  ////////// element access //////////
         return m_data;
     }
 
-    AddTransitiveConstT<StorageType> data() const {
+    detail::AddTransitiveConstT<StorageType> data() const {
         return m_data;
     }
 public:  ////////// iterators //////////
@@ -197,7 +197,7 @@ requires ComparableContainerBase<A, B>  //
 
     using S = std::common_type_t<typename A::size_type, typename B::size_type>;
 
-    if (PtrCmp<A, B>()(&a, &b)) return true;
+    if (detail::PtrCmp<A, B>()(&a, &b)) return true;
 
     if (a.size() != b.size()) return false;
 

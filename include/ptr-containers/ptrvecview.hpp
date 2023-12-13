@@ -28,7 +28,7 @@ public:
 
     PtrVecView(const_iterator from, const_iterator to) {
         m_data = from;
-        auto const dist = distance(from, to);
+        auto const dist = detail::distance(from, to);
         assert(dist > 0);
         m_size = size_type(dist);
     }

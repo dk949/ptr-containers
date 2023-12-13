@@ -3,7 +3,7 @@
 #include <concepts>
 #include <memory>
 
-namespace ut {
+namespace ut::detail {
 template<typename A, typename B>
 concept SameAsRemoveCVRef = std::same_as<std::remove_cvref_t<A>, std::remove_cvref_t<B>>;
 
@@ -67,7 +67,7 @@ struct PtrCmp<T, T> {
 template<typename T>
 concept Numeric = std::integral<T> || std::floating_point<T>;
 
-}  // namespace ut
+}  // namespace ut::detail
 
 
 #endif  // CONCEPTS_HPP

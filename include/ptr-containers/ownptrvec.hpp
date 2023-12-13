@@ -167,7 +167,7 @@ public:  ////////// modifiers //////////
         return insertImpl(pos, t.release());
     }
 
-    template<DerivedOrEqualTo<T> U>
+    template<detail::DerivedOrEqualTo<T> U>
     iterator insert(const_iterator pos, U &&t) {
         using Ctor = std::remove_cvref_t<U>;
         return insertImpl(pos, new Ctor(std::forward<U>(t)));
@@ -182,13 +182,13 @@ public:  ////////// modifiers //////////
     }
 
     iterator erase(const_iterator first, const_iterator last) {
-        if (first == last) return m_data + distance(m_data, last);
+        if (first == last) return m_data + detail::distance(m_data, last);
         assert(first != end());
         assert(m_size > 0);
-        auto const range_size = distance(first, last);
+        auto const range_size = detail::distance(first, last);
         assert(range_size > 0);
         assert(size_type(range_size) <= m_size);
-        auto const start_idx = distance(m_data, first);
+        auto const start_idx = detail::distance(m_data, first);
         for (auto i = start_idx; i < start_idx + range_size; i++)
             delete m_data[i];
 
@@ -199,7 +199,7 @@ public:  ////////// modifiers //////////
         return m_data + start_idx;
     }
 
-    template<DerivedOrEqualTo<T> U = T, typename... Args>
+    template<detail::DerivedOrEqualTo<T> U = T, typename... Args>
     iterator emplace(const_iterator pos, Args &&...t) {
         using Ctor = std::remove_cvref_t<U>;
         return insertImpl(pos, new Ctor(std::forward<Args>(t)...));
@@ -210,7 +210,7 @@ public:  ////////// modifiers //////////
         m_data[m_size++] = t.release();
     }
 
-    template<DerivedOrEqualTo<T> U>
+    template<detail::DerivedOrEqualTo<T> U>
     void push_back(U &&t) {
         using Ctor = std::remove_cvref_t<U>;
         ensureExtraCapacity(1);
@@ -218,7 +218,7 @@ public:  ////////// modifiers //////////
     }
 
     /// Construct new item in-place
-    template<DerivedOrEqualTo<T> U = T, typename... Args>
+    template<detail::DerivedOrEqualTo<T> U = T, typename... Args>
     reference emplace_back(Args &&...args) {
         using Ctor = std::remove_cvref_t<U>;
         ensureExtraCapacity(1);
@@ -273,7 +273,7 @@ private:
             push_back(std::unique_ptr<T> {t});
             return end() - 1;
         }
-        auto const idx = distance(m_data, pos);
+        auto const idx = detail::distance(m_data, pos);
         assert(idx >= 0);
         assert(size_type(idx) <= m_size);
         if (m_size + 1 >= m_cap) {
@@ -291,17 +291,17 @@ private:
         return m_data + idx;
     }
 
-    template<UniquePtr First, typename... Args>
+    template<detail::UniquePtr First, typename... Args>
     void makeImpl(First &&first, Args &&...args)  //
-        requires DerivedOrEqualTo<typename First::element_type, T> {
+        requires detail::DerivedOrEqualTo<typename First::element_type, T> {
 
         m_data[m_size++] = first.release();
         if constexpr (sizeof...(Args)) makeImpl(std::forward<Args>(args)...);
     }
 
-    template<NotUniquePtr First, typename... Args>
+    template<detail::NotUniquePtr First, typename... Args>
     void makeImpl(First &&first, Args &&...args)  //
-        requires DerivedOrEqualTo<First, T> {
+        requires detail::DerivedOrEqualTo<First, T> {
 
         using Ctor = std::remove_cvref_t<First>;
         m_data[m_size++] = new Ctor(std::forward<First>(first));

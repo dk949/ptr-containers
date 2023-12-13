@@ -2,7 +2,7 @@
 
 #include "ptr-containers/template_helpers.hpp"
 
-using namespace ut;
+using namespace ut::detail;
 
 struct Base { };
 
