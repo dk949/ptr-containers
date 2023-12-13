@@ -2,7 +2,6 @@
 #define VALUEPTR_HPP
 #include "template_helpers.hpp"
 
-#include <iostream>
 #include <utility>
 
 namespace ut {
@@ -17,8 +16,7 @@ private:
 
 public:  ////////// constructors //////////
     ValuePtr()
-            : m_obj(new T {}) {
-    }
+            : m_obj(new T {}) { }
 
     template<detail::DerivedOrEqualTo<T> U>
     ValuePtr(U &&obj) {
