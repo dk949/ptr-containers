@@ -17,10 +17,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: ninja-build
+        version: 1.0
     - name: Configure CMake
       run: |
-        sh ${{github.workspace}}/tests/fetch-catch2.sh
-        cmake -S ${{github.workspace}} -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DPTR_CONTAINERS_BUILD_TESTS=YES
+        sh ${{github.workspace}}/scripts/fetch-catch2.sh
+        cmake -S ${{github.workspace}}                           \
+              -B ${{github.workspace}}/build                     \
+              -G "$(${{github.workspace}}/scripts/generator.sh)" \
+              -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}             \
+              -DPTR_CONTAINERS_BUILD_TESTS=YES
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
