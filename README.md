@@ -8,7 +8,7 @@ Requires c++20 (mostly for concepts)
 
 ## Adding to a project
 
-Not currently set up as a cmake pakcage.
+Not currently set up as a cmake package.
 
 1. `git clone https://github.com/dk949/ptr-containers` or `git submodule add https://github.com/dk949/ptr-containers`
 2. add `add_subdirectory(ptr-containers)` to your `CMakeLists.txt`
