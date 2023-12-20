@@ -2,6 +2,7 @@
 #define VALUEPTR_HPP
 #include "template_helpers.hpp"
 
+#include <memory>
 #include <utility>
 
 namespace ut {
@@ -21,6 +22,11 @@ public:  ////////// constructors //////////
     template<detail::DerivedOrEqualTo<T> U>
     ValuePtr(U &&obj) {
         m_obj = new std::remove_cvref_t<U>(std::forward<U>(obj));
+    }
+
+    template<detail::DerivedOrEqualTo<T> U>
+    explicit ValuePtr(std::unique_ptr<U> obj) {
+        m_obj = obj.release();
     }
 
     ValuePtr(ValuePtr const &other) {
@@ -86,6 +92,14 @@ public:  ////////// functions //////////
 
     T const *get() const {
         return m_obj;
+    }
+
+    /** Get ownership of the underlying pointer
+     */
+    std::unique_ptr<T> release() {
+        auto *tmp = m_obj;
+        m_obj = nullptr;
+        return std::unique_ptr<T> {tmp};
     }
 
     void swap(ValuePtr &other) {

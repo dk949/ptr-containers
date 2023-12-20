@@ -34,6 +34,7 @@ Not currently set up as a cmake pakcage.
     * Can be thought of as `std::any` which can only contain subclasses of `T`.
     * Provides `operator->` to access `T`s API.
     * See notes at the end of document for caveats.
+    * All information about pointer ownership is passed via `std::unique_ptr`.
 
 See comments for further descriptions of individual functions.
 

@@ -41,6 +41,20 @@ TEST_CASE("ValuePtr: constructors", "[utils][ValuePtr]") {
         ValuePtr<int> v = 3;
         REQUIRE(*v == 3);
     }
+
+    SECTION("unique_ptr constructor") {
+        std::unique_ptr<int> up = std::make_unique<int>(10);
+        ValuePtr<int> v {std::move(up)};
+        REQUIRE(*v == 10);
+        SUCCEED("no leak and no double delete");
+    }
+}
+
+TEST_CASE("ValuePtr: release", "[utils][ValuePtr]") {
+    auto v = ValuePtr {27};
+    auto ptr = v.release();
+    REQUIRE(*ptr == 27);
+    SUCCEED("no leak and no double delete");
 }
 
 TEST_CASE("ValuePtr: assignment", "[utils][ValuePtr]") {
