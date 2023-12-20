@@ -111,7 +111,6 @@ TEST_CASE("OwnPtrVec: element access", "[utils][OwnPtrVec]") {
         auto ptr = v.release_back();
         REQUIRE(v.size() == 1);
         REQUIRE(v.capacity() == old_cap);
-        delete ptr;
         SUCCEED("no leak and no double delete");
     }
 }

@@ -124,6 +124,8 @@ public:  ////////// element access //////////
      *  The returned buffer can hold up to `capacity()` elements, but only the
      *  first `size()` are allocated (and hence have to be deleted).
      *
+     *  Use of this function is strongly discouraged
+     *
      *  NOTE: Call `size()` and `calacity()` *before* calling `release()` as they will
      *  be reset after the call.
      */
@@ -136,10 +138,10 @@ public:  ////////// element access //////////
         return ptr;
     }
 
-    /// Caller owns returned memory. Use `delete` to delete.
-    [[nodiscard("returns owning pointer")]]
-    T *release_back() {
-        return m_data[--m_size];
+    /// Caller owns returned memory.
+    [[nodiscard("object will be deleted at the end of the function call if not saved to temporary")]]
+    std::unique_ptr<T> release_back() {
+        return std::unique_ptr<T> {m_data[--m_size]};
     }
 
 public:  ////////// capacity //////////

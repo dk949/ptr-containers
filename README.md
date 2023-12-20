@@ -24,7 +24,7 @@ Not currently set up as a cmake pakcage.
     * Provides various features which make it behave as if it holds values of
       type `T`. (such as being able to `push_back` non pointer values)
     * All information about pointer ownership is passed via `std::unique_ptr`
-      except for pointers returned from `release*` functions.
+      except for pointers returned from the `release` function.
     * Supports most of the `std::vector` API and parts of the `std::unique_ptr` API.
     * No allocator support (yet).
 * `ut::PtrVecView<T>`
